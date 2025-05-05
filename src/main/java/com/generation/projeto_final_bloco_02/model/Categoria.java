@@ -1,21 +1,25 @@
 package com.generation.projeto_final_bloco_02.model;
 
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.validation.constraints.NotBlank;
+import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
+@Entity
+@Table(name = "tb_categoria")
 public class Categoria {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @NotBlank(message = "O nome da categoria é obrigatório")
+  @NotNull(message = "O nome da categoria é obrigatório")
   private String nome;
 
-  @NotBlank(message = "A descrição da categoria é obrigatória")
+  @NotNull(message = "A descrição da categoria é obrigatória")
   @Size(min = 10, max = 1000, message = "A descrição deve conter no minimo 10 e no maximo 1000 caracteres")
   private String descricao;
 
