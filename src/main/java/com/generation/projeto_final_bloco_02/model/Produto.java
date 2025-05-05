@@ -3,11 +3,13 @@ package com.generation.projeto_final_bloco_02.model;
 import java.math.BigDecimal;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -17,14 +19,14 @@ import jakarta.validation.constraints.Size;
 @Entity
 @Table(name = "tb_produto")
 public class Produto {
-  
+
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
   @NotBlank(message = "O nome do produto é obrigatório")
   private String nome;
-  
+
   @NotBlank(message = "A descrição do produto é obrigatória")
   @Size(min = 10, max = 1000, message = "A descrição deve conter no minimo 10 e no maximo 1000 caracteres")
   private String descricao;
@@ -39,8 +41,12 @@ public class Produto {
   private String fabricante;
 
   private boolean requer_receita = false;
-  
+
   private String foto_produto;
+
+  @ManyToOne
+  @JsonIgnoreProperties("produtos") // muda
+  private Categoria categoria;
 
   public Long getId() {
     return id;
@@ -106,6 +112,14 @@ public class Produto {
     this.foto_produto = foto_produto;
   }
 
+  public Categoria getCategoria() {
+    return categoria;
+  }
+
+  public void setCategoria(Categoria categoria) {
+    this.categoria = categoria;
+  }
+
   
-  
+
 }
